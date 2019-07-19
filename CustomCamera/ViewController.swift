@@ -85,7 +85,9 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         
         if takePhoto {
             takePhoto = false
-            
+            if connection.isVideoOrientationSupported {
+                connection.videoOrientation = UIDevice.current.orientation == .portrait ? .portrait : .landscapeRight
+            }
             if let image = self.getImageFromSampleBuffer(buffer: sampleBuffer) {
                 
                 let photoVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PhotoVC") as! PhotoViewController
